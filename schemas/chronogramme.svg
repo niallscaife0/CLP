@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 364" role="img" aria-label="Fin de ligne : horizontal et vertical changent au même front">
+<style>
+  text { font-family: Atkinson Hyperlegible, system-ui, -apple-system, Segoe UI, sans-serif; }
+  .ink { fill: #1E2320; } .muted { fill: #59605B; }
+  .s-ink { stroke: #1E2320; } .s-edge { stroke: #9EA39C; } .s-grid { stroke: #D3D6D0; }
+  .s-acc { stroke: #16833F; } .f-acc { fill: #16833F; } .f-acc-t { fill: #16833F; fill-opacity: .14; }
+  .s-syn { stroke: #A85F0A; } .f-syn-t { fill: #A85F0A; fill-opacity: .16; }
+  .f-tint { fill: #D9DCD5; } .f-edge { fill: #9EA39C; }
+  @media (prefers-color-scheme: dark) {
+    .ink { fill: #E5E8E3; } .muted { fill: #A1A8A2; }
+    .s-ink { stroke: #E5E8E3; } .s-edge { stroke: #6B716C; } .s-grid { stroke: #3A3F3B; }
+    .s-acc { stroke: #3ED97A; } .f-acc { fill: #3ED97A; } .f-acc-t { fill: #3ED97A; fill-opacity: .16; }
+    .s-syn { stroke: #E39A3B; } .f-syn-t { fill: #E39A3B; fill-opacity: .2; }
+    .f-tint { fill: #2C302D; } .f-edge { fill: #6B716C; }
+  }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-edge"/></marker><marker id="arrow-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-acc"/></marker></defs>
+<text x="24" y="32" class="ink" font-size="15" font-weight="700" text-anchor="start">Fin de ligne : horizontal et vertical changent au même front</text>
+<line x1="170" x2="170" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="238" x2="238" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="306" x2="306" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="374" x2="374" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="442" x2="442" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="510" x2="510" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="578" x2="578" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="646" x2="646" y1="70" y2="296" class="s-grid" stroke-dasharray="3 4"/>
+<line x1="374" x2="374" y1="70" y2="300" class="s-acc" stroke-width="1.5"/>
+<text x="24" y="96" class="ink" font-size="13" font-weight="700" text-anchor="start">CLOCK_50</text>
+<text x="24" y="156" class="ink" font-size="13" font-weight="700" text-anchor="start">pixel</text>
+<text x="24" y="215" class="ink" font-size="13" font-weight="700" text-anchor="start">h_cpt</text>
+<text x="24" y="275" class="ink" font-size="13" font-weight="700" text-anchor="start">v_cpt</text>
+<path d="M150 104 L170 104 L170 80 L204 80 L204 104 L238 104 L238 80 L272 80 L272 104 L306 104 L306 80 L340 80 L340 104 L374 104 L374 80 L408 80 L408 104 L442 104 L442 80 L476 80 L476 104 L510 104 L510 80 L544 80 L544 104 L578 104 L578 80 L612 80 L612 104 L646 104 L646 80 L680 80 L680 104 L736 104" fill="none" class="s-ink" stroke-width="1.25"/>
+<path d="M150 164 L174 164 L174 140 L242 140 L242 164 L310 164 L310 140 L378 140 L378 164 L446 164 L446 140 L514 140 L514 164 L582 164 L582 140 L650 140 L650 164 L736 164" fill="none" class="s-ink" stroke-width="1.25"/>
+<polygon points="150,196 236,196 242,211 236,226 150,226" fill="none" class="s-edge" stroke-width="1.25"/>
+<polygon points="242,211 248,196 372,196 378,211 372,226 248,226" fill="none" class="s-edge" stroke-width="1.25"/>
+<polygon points="378,211 384,196 508,196 514,211 508,226 384,226" class="f-acc-t s-acc" stroke-width="2"/>
+<polygon points="514,211 520,196 644,196 650,211 644,226 520,226" fill="none" class="s-edge" stroke-width="1.25"/>
+<polygon points="650,211 656,196 736,196 736,226 656,226" fill="none" class="s-edge" stroke-width="1.25"/>
+<text x="196" y="215" class="ink" font-size="13" font-weight="400" text-anchor="middle">798</text>
+<text x="310" y="215" class="ink" font-size="13" font-weight="400" text-anchor="middle">799</text>
+<text x="446" y="215" class="ink" font-size="13" font-weight="700" text-anchor="middle">0</text>
+<text x="582" y="215" class="ink" font-size="13" font-weight="400" text-anchor="middle">1</text>
+<text x="693" y="215" class="ink" font-size="13" font-weight="400" text-anchor="middle">2</text>
+<polygon points="150,256 372,256 378,271 372,286 150,286" fill="none" class="s-edge" stroke-width="1.25"/>
+<polygon points="378,271 384,256 736,256 736,286 384,286" class="f-acc-t s-acc" stroke-width="2"/>
+<text x="264" y="275" class="ink" font-size="13" font-weight="400" text-anchor="middle">12</text>
+<text x="557" y="275" class="ink" font-size="13" font-weight="700" text-anchor="middle">13</text>
+<text x="24" y="324" class="ink" font-size="11.5" font-weight="400" text-anchor="start">Trait plein : le front où h_cpt passe de 799 à 0 et v_cpt de 12 à 13, au même instant.</text>
+<text x="24" y="344" class="muted" font-size="11.5" font-weight="400" text-anchor="start">Pointillés : fronts montants (20 ns). Les compteurs n’avancent qu’un front sur deux, quand pixel valait 1 juste avant.</text>
+</svg>

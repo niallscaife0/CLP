@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carré mobile VGA sur FPGA</title>
+<meta name="description" content="Un FPGA génère un signal VGA et déplace un carré projeté avec deux boutons : cahier des charges, simulations et représentations de conception.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Un carré, deux boutons, un FPGA</h1>
+    <p>Une carte DE0-Nano génère elle-même un signal vidéo VGA. Deux boutons déplacent un carré vert projeté sur le mur, sans ordinateur branché au projecteur.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections du projet">
+    <a href="#projet" id="tab-projet" role="tab" aria-controls="view-projet">Projet</a>
+    <a href="#cahier" id="tab-cahier" role="tab" aria-controls="view-cahier">Cahier des charges</a>
+    <a href="#simulation" id="tab-simulation" role="tab" aria-controls="view-simulation">Simulation</a>
+    <a href="#architecture" id="tab-architecture" role="tab" aria-controls="view-architecture">Architecture</a>
+    <a href="#temps" id="tab-temps" role="tab" aria-controls="view-temps">Temps</a>
+    <a href="#logique" id="tab-logique" role="tab" aria-controls="view-logique">Logique</a>
+    <a href="#materiel" id="tab-materiel" role="tab" aria-controls="view-materiel">Matériel</a>
+  </nav>
+
+  <main>
+    <!-- Onglets de texte : le contenu vient des fichiers Markdown du dossier contenu/ -->
+    <section class="view" id="view-projet" role="tabpanel" aria-labelledby="tab-projet" data-src="contenu/projet.md"><article class="prose"></article></section>
+    <section class="view" id="view-cahier" role="tabpanel" aria-labelledby="tab-cahier" data-src="contenu/cahier-des-charges.md" hidden><article class="prose"></article></section>
+    <section class="view" id="view-architecture" role="tabpanel" aria-labelledby="tab-architecture" data-src="contenu/architecture.md" hidden><article class="prose"></article></section>
+    <section class="view" id="view-temps" role="tabpanel" aria-labelledby="tab-temps" data-src="contenu/temps.md" hidden><article class="prose"></article></section>
+    <section class="view" id="view-logique" role="tabpanel" aria-labelledby="tab-logique" data-src="contenu/logique.md" hidden><article class="prose"></article></section>
+    <section class="view" id="view-materiel" role="tabpanel" aria-labelledby="tab-materiel" data-src="contenu/materiel.md" hidden><article class="prose"></article></section>
+
+    <!-- Onglet Simulation -->
+    <section class="view" id="view-simulation" role="tabpanel" aria-labelledby="tab-simulation" hidden>
+      <div class="subnav" role="group" aria-label="Choix de la simulation">
+        <button type="button" data-sub="resultat" aria-pressed="true">Résultat</button>
+        <button type="button" data-sub="mecanisme" aria-pressed="false">Mécanisme</button>
+        <button type="button" data-sub="signaux" aria-pressed="false">Signaux et paramètres</button>
+      </div>
+
+      <!-- Résultat -->
+      <div class="subview" id="sub-resultat">
+        <p class="view-intro">Ce que voit la personne devant le mur. Maintiens KEY0 ou KEY1, ou les flèches gauche et droite du clavier : le carré glisse et s’arrête aux bords.</p>
+        <div class="layout">
+          <div>
+            <div class="wall"><canvas class="screen" id="res-canvas" width="640" height="480" aria-label="Écran projeté : un carré vert sur fond noir"></canvas></div>
+            <p class="caption">Image 640 × 480, rafraîchie 59,52 fois par seconde, comme sur la carte.</p>
+          </div>
+          <aside>
+            <div class="panel">
+              <h2>Les boutons de la carte</h2>
+              <div class="keys">
+                <button type="button" class="key" data-key="k0" aria-pressed="false">KEY0<span>vers la gauche</span></button>
+                <button type="button" class="key" data-key="k1" aria-pressed="false">KEY1<span>vers la droite</span></button>
+              </div>
+              <div class="levels"><div data-level="k0">niveau 1, relâché</div><div data-level="k1">niveau 1, relâché</div></div>
+            </div>
+            <div class="panel">
+              <h2>Règle appliquée à chaque fin d’image</h2>
+              <table aria-label="Tableau de cas de x_pos"><tbody>
+                <tr data-row="0"><td>KEY0 appuyé et x_pos ≥ 4</td><td class="num">x_pos − 4</td></tr>
+                <tr data-row="1"><td>KEY1 appuyé et x_pos ≤ 596</td><td class="num">x_pos + 4</td></tr>
+                <tr data-row="2"><td>Sinon</td><td class="num">inchangé</td></tr>
+              </tbody></table>
+              <p class="status note" id="res-status"></p>
+            </div>
+            <div class="panel">
+              <h2>État</h2>
+              <div class="big" id="res-x">300</div>
+              <p class="note">x_pos, position du bord gauche du carré (0 à 600)</p>
+              <dl class="state">
+                <dt>Images affichées</dt><dd id="res-frames">0</dd>
+                <dt>Temps écoulé</dt><dd id="res-time">0,0 s</dd>
+              </dl>
+              <div class="controls" style="margin-top:12px"><button type="button" class="ctl" id="res-reset">Remettre au centre</button></div>
+            </div>
+            <p class="note">Simulé fidèlement : la règle du code VHDL, la vitesse (4 pixels par image), les bornes. Non simulés : le rebond des boutons et la tension réelle du vert.</p>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Mécanisme -->
+      <div class="subview" id="sub-mecanisme" hidden>
+        <p class="view-intro">Le FPGA ne dessine pas l’image d’un coup : il envoie un pixel après l’autre, ligne après ligne, 25 millions de fois par seconde. Ici, le balayage est ralenti pour qu’on le voie. Autour de l’écran, la zone sombre est le temps mort : rien n’y est affiché, c’est là que passent les impulsions de synchronisation.</p>
+        <div class="layout">
+          <div>
+            <div class="wall"><canvas class="screen" id="mech-canvas" width="800" height="525" aria-label="Balayage complet 800 × 525, avec la zone visible et le temps mort"></canvas></div>
+            <div class="legend">
+              <span><i style="background:#000;outline:1px solid #888"></i>zone visible 640 × 480</span>
+              <span><i style="background:#3A3E3B"></i>marges (temps mort)</span>
+              <span><i style="background:#8C5A1F"></i>impulsions HSYNC et VSYNC</span>
+              <span><i style="background:#fff;border-radius:50%;outline:1px solid #888"></i>point de balayage (h_cpt, v_cpt)</span>
+            </div>
+          </div>
+          <aside>
+            <div class="panel">
+              <h2>Lecture</h2>
+              <div class="controls">
+                <button type="button" class="ctl primary" id="mech-play">Pause</button>
+                <button type="button" class="ctl" id="mech-px">+1 pixel</button>
+                <button type="button" class="ctl" id="mech-line">+1 ligne</button>
+                <button type="button" class="ctl" id="mech-frame">+1 image</button>
+              </div>
+              <fieldset style="margin-top:14px"><legend>Vitesse du balayage</legend><div id="mech-speeds"></div></fieldset>
+            </div>
+            <div class="panel">
+              <h2>Boutons</h2>
+              <div class="keys">
+                <button type="button" class="key" data-key="k0" aria-pressed="false">KEY0<span>vers la gauche</span></button>
+                <button type="button" class="key" data-key="k1" aria-pressed="false">KEY1<span>vers la droite</span></button>
+              </div>
+              <fieldset style="margin-top:14px">
+                <legend>Moment où x_pos change</legend>
+                <label class="choice"><input type="radio" name="mech-mode" value="frame" checked><span>À la fin de chaque image, comme sur la carte</span></label>
+                <label class="choice"><input type="radio" name="mech-mode" value="line"><span>À la fin de chaque ligne : le carré se déchire</span></label>
+              </fieldset>
+            </div>
+            <div class="panel">
+              <h2>Ce que la carte calcule en ce moment</h2>
+              <dl class="state">
+                <dt>h_cpt</dt><dd id="m-h">0</dd>
+                <dt>v_cpt</dt><dd id="m-v">0</dd>
+                <dt>Zone</dt><dd id="m-zone">Visible</dd>
+                <dt>HSYNC</dt><dd id="m-hs">1</dd>
+                <dt>VSYNC</dt><dd id="m-vs">1</dd>
+                <dt>GREEN</dt><dd id="m-g">0</dd>
+                <dt>x_pos</dt><dd id="m-x">300</dd>
+                <dt>Images terminées</dt><dd id="m-frames">0</dd>
+              </dl>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Signaux et paramètres -->
+      <div class="subview" id="sub-signaux" hidden>
+        <p class="view-intro">Les trois fils qui sortent de la carte, vus sur une ligne puis sur une image entière. Change les paramètres choisis : les signaux et les valeurs calculées suivent. Les paramètres imposés par la norme VGA ne bougent pas.</p>
+        <div class="layout">
+          <div>
+            <div class="panel">
+              <div class="chrono-block">
+                <h3 id="line-title">Une ligne</h3>
+                <p>Horizontal : h_cpt de 0 à 799, soit 32 µs.</p>
+                <canvas class="chrono" id="chrono-line" aria-label="Chronogramme d’une ligne : HSYNC et GREEN"></canvas>
+              </div>
+              <div class="chrono-block" style="margin-bottom:0">
+                <h3>Une image</h3>
+                <p>Vertical : v_cpt de 0 à 524, soit 16,8 ms. Le trait indique la ligne observée.</p>
+                <canvas class="chrono" id="chrono-frame" aria-label="Chronogramme d’une image : VSYNC et lignes contenant du vert"></canvas>
+              </div>
+            </div>
+            <div class="legend">
+              <span><i style="background:var(--signal);opacity:.35"></i>zone visible</span>
+              <span><i style="background:var(--line)"></i>marges</span>
+              <span><i style="background:var(--sync);opacity:.45"></i>impulsion de synchronisation</span>
+            </div>
+          </div>
+          <aside>
+            <div class="panel">
+              <h2>Écran</h2>
+              <canvas class="screen" id="prev-canvas" width="640" height="480" aria-label="Aperçu de l’écran avec la ligne observée"></canvas>
+              <fieldset style="margin-top:12px">
+                <legend>Ce que fait GREEN</legend>
+                <label class="choice"><input type="radio" name="sig-mode" value="carre" checked><span>Un carré (version actuelle)</span></label>
+                <label class="choice"><input type="radio" name="sig-mode" value="v1"><span>Toute la zone visible (V1)</span></label>
+              </fieldset>
+            </div>
+            <div class="panel">
+              <h2>Paramètres choisis</h2>
+              <div class="slider"><label for="p-line">Ligne observée <output id="o-line">240</output></label><input type="range" id="p-line" min="0" max="524" value="240"></div>
+              <div class="slider"><label for="p-s">Côté du carré S <output id="o-s">40</output></label><input type="range" id="p-s" min="8" max="200" value="40"></div>
+              <div class="slider"><label for="p-x">Position x_pos <output id="o-x">300</output></label><input type="range" id="p-x" min="0" max="600" value="300"></div>
+              <div class="slider"><label for="p-y">Position Y <output id="o-y">220</output></label><input type="range" id="p-y" min="0" max="440" value="220"></div>
+              <div class="slider"><label for="p-v">Vitesse V (pixels par image) <output id="o-v">4</output></label><input type="range" id="p-v" min="1" max="20" value="4"></div>
+            </div>
+            <div class="panel">
+              <h2>Valeurs calculées</h2>
+              <table><tbody id="calc"></tbody></table>
+            </div>
+            <div class="panel">
+              <h2>Paramètres imposés</h2>
+              <table><tbody>
+                <tr><td>Horloge pixel</td><td class="num">25 MHz</td></tr>
+                <tr><td>Ligne</td><td class="num">800 (640 visibles)</td></tr>
+                <tr><td>Image</td><td class="num">525 (480 visibles)</td></tr>
+                <tr><td>Impulsion HSYNC</td><td class="num">656 à 751</td></tr>
+                <tr><td>Impulsion VSYNC</td><td class="num">490 à 491</td></tr>
+                <tr><td>Fréquence HSYNC</td><td class="num">31,25 kHz</td></tr>
+                <tr><td>Fréquence VSYNC</td><td class="num">59,52 Hz</td></tr>
+              </tbody></table>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Niall Scaife, ISIB, cours de circuits logiques programmables, 2026.</footer>
+</div>
+
+<script src="lib/marked.min.js"></script>
+<script src="simulation.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

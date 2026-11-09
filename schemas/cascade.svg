@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" role="img" aria-label="Une seule horloge fait tout avancer, étage par étage">
+<style>
+  text { font-family: Atkinson Hyperlegible, system-ui, -apple-system, Segoe UI, sans-serif; }
+  .ink { fill: #1E2320; } .muted { fill: #59605B; }
+  .s-ink { stroke: #1E2320; } .s-edge { stroke: #9EA39C; } .s-grid { stroke: #D3D6D0; }
+  .s-acc { stroke: #16833F; } .f-acc { fill: #16833F; } .f-acc-t { fill: #16833F; fill-opacity: .14; }
+  .s-syn { stroke: #A85F0A; } .f-syn-t { fill: #A85F0A; fill-opacity: .16; }
+  .f-tint { fill: #D9DCD5; } .f-edge { fill: #9EA39C; }
+  @media (prefers-color-scheme: dark) {
+    .ink { fill: #E5E8E3; } .muted { fill: #A1A8A2; }
+    .s-ink { stroke: #E5E8E3; } .s-edge { stroke: #6B716C; } .s-grid { stroke: #3A3F3B; }
+    .s-acc { stroke: #3ED97A; } .f-acc { fill: #3ED97A; } .f-acc-t { fill: #3ED97A; fill-opacity: .16; }
+    .s-syn { stroke: #E39A3B; } .f-syn-t { fill: #E39A3B; fill-opacity: .2; }
+    .f-tint { fill: #2C302D; } .f-edge { fill: #6B716C; }
+  }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-edge"/></marker><marker id="arrow-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-acc"/></marker></defs>
+<text x="24" y="32" class="ink" font-size="15" font-weight="700" text-anchor="start">Une seule horloge fait tout avancer, étage par étage</text>
+<rect x="120" y="60" width="300" height="72" rx="8" class="f-acc-t s-acc" stroke-width="2"/>
+<text x="270" y="84" class="ink" font-size="13" font-weight="700" text-anchor="middle">CLOCK_50</text>
+<text x="270" y="100" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">Quartz de la carte, 50 MHz</text>
+<text x="270" y="116" class="muted" font-size="11.5" font-weight="400" text-anchor="middle">un front montant toutes les 20 ns</text>
+<rect x="120" y="180" width="300" height="72" rx="8" fill="none" class="s-edge" stroke-width="1.25"/>
+<text x="270" y="204" class="ink" font-size="13" font-weight="700" text-anchor="middle">pixel (1 bit)</text>
+<text x="270" y="220" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">bascule 0, 1, 0, 1 à chaque front</text>
+<text x="270" y="236" class="muted" font-size="11.5" font-weight="400" text-anchor="middle">autorise un pas toutes les 40 ns</text>
+<rect x="120" y="300" width="300" height="72" rx="8" fill="none" class="s-edge" stroke-width="1.25"/>
+<text x="270" y="324" class="ink" font-size="13" font-weight="700" text-anchor="middle">h_cpt (10 bits)</text>
+<text x="270" y="340" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">compte de 0 à 799, puis revient à 0</text>
+<text x="270" y="356" class="muted" font-size="11.5" font-weight="400" text-anchor="middle">un tour = une ligne = 32 µs</text>
+<rect x="120" y="420" width="300" height="72" rx="8" fill="none" class="s-edge" stroke-width="1.25"/>
+<text x="270" y="444" class="ink" font-size="13" font-weight="700" text-anchor="middle">v_cpt (10 bits)</text>
+<text x="270" y="460" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">compte de 0 à 524, puis revient à 0</text>
+<text x="270" y="476" class="muted" font-size="11.5" font-weight="400" text-anchor="middle">un tour = une image = 16,8 ms</text>
+<g fill="none" class="s-edge" stroke-width="1.25"><path d="M270 132V178" marker-end="url(#arrow)"/><path d="M270 252V298" marker-end="url(#arrow)"/><path d="M270 372V418" marker-end="url(#arrow)"/><path d="M420 336H470V376H518" marker-end="url(#arrow)"/><path d="M420 456H470V416H518" marker-end="url(#arrow)"/></g>
+<text x="290" y="160" class="muted" font-size="11.5" font-weight="400" text-anchor="start">à chaque front montant</text>
+<text x="290" y="280" class="muted" font-size="11.5" font-weight="400" text-anchor="start">seulement si pixel = 1</text>
+<text x="290" y="400" class="muted" font-size="11.5" font-weight="400" text-anchor="start">quand h_cpt passe de 799 à 0</text>
+<rect x="520" y="352" width="216" height="88" rx="8" class="f-tint s-edge" stroke-width="1.25"/>
+<text x="628" y="376" class="ink" font-size="13" font-weight="700" text-anchor="middle">Sorties</text>
+<text x="628" y="392" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">HSYNC, VSYNC, GREEN</text>
+<text x="628" y="408" class="muted" font-size="11.5" font-weight="400" text-anchor="middle">simples comparaisons</text>
+<text x="628" y="424" class="muted" font-size="11.5" font-weight="400" text-anchor="middle">sur h_cpt et v_cpt</text>
+</svg>

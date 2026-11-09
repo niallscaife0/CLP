@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 536" role="img" aria-label="Le carré est repéré par son coin haut-gauche et son côté">
+<style>
+  text { font-family: Atkinson Hyperlegible, system-ui, -apple-system, Segoe UI, sans-serif; }
+  .ink { fill: #1E2320; } .muted { fill: #59605B; }
+  .s-ink { stroke: #1E2320; } .s-edge { stroke: #9EA39C; } .s-grid { stroke: #D3D6D0; }
+  .s-acc { stroke: #16833F; } .f-acc { fill: #16833F; } .f-acc-t { fill: #16833F; fill-opacity: .14; }
+  .s-syn { stroke: #A85F0A; } .f-syn-t { fill: #A85F0A; fill-opacity: .16; }
+  .f-tint { fill: #D9DCD5; } .f-edge { fill: #9EA39C; }
+  @media (prefers-color-scheme: dark) {
+    .ink { fill: #E5E8E3; } .muted { fill: #A1A8A2; }
+    .s-ink { stroke: #E5E8E3; } .s-edge { stroke: #6B716C; } .s-grid { stroke: #3A3F3B; }
+    .s-acc { stroke: #3ED97A; } .f-acc { fill: #3ED97A; } .f-acc-t { fill: #3ED97A; fill-opacity: .16; }
+    .s-syn { stroke: #E39A3B; } .f-syn-t { fill: #E39A3B; fill-opacity: .2; }
+    .f-tint { fill: #2C302D; } .f-edge { fill: #6B716C; }
+  }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-edge"/></marker><marker id="arrow-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-acc"/></marker></defs>
+<text x="24" y="32" class="ink" font-size="15" font-weight="700" text-anchor="start">Le carré est repéré par son coin haut-gauche (X, Y) et son côté S</text>
+<g fill="none" class="s-edge" stroke-width="1.25"><path d="M140 62H640" marker-end="url(#arrow)"/><path d="M122 80V460" marker-end="url(#arrow)"/></g>
+<text x="648" y="66" class="muted" font-size="11.5" font-weight="400" text-anchor="start">x = h_cpt</text>
+<text x="24" y="472" class="muted" font-size="11.5" font-weight="400" text-anchor="start">y = v_cpt</text>
+<text x="24" y="488" class="muted" font-size="11.5" font-weight="400" text-anchor="start">(vers le bas)</text>
+<rect x="140" y="80" width="480.0" height="360.0" fill="none" class="s-edge" stroke-width="1.25"/>
+<text x="146" y="96" class="muted" font-size="11.5" font-weight="400" text-anchor="start">(0, 0)</text>
+<text x="614.0" y="432.0" class="muted" font-size="11.5" font-weight="400" text-anchor="end">(639, 479)</text>
+<g class="s-grid" stroke-dasharray="4 4"><line x1="140" x2="365.0" y1="260.0" y2="260.0"/><line x1="380.0" x2="380.0" y1="80" y2="245.0"/></g>
+<text x="252.5" y="252.0" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">X = 300</text>
+<text x="388.0" y="166.5" class="ink" font-size="11.5" font-weight="400" text-anchor="start">Y = 220</text>
+<rect x="365.0" y="245.0" width="30.0" height="30.0" class="f-acc s-acc" fill-opacity=".35" stroke-width="2"/>
+<text x="380.0" y="293.0" class="ink" font-size="11.5" font-weight="400" text-anchor="middle">S = 40</text>
+<path d="M144 472.0H590.0" fill="none" class="s-acc" stroke-width="1.5" marker-end="url(#arrow-acc)" marker-start="url(#arrow-acc)"/>
+<text x="140" y="496.0" class="ink" font-size="11.5" font-weight="400" text-anchor="start">x_pos peut aller de 0 à 600 (= 640 − S) : au-delà, le carré sortirait de l’écran</text>
+<text x="140" y="514.0" class="muted" font-size="11.5" font-weight="400" text-anchor="start">KEY0 : vers 0 (gauche). KEY1 : vers 600 (droite). 4 pixels par image.</text>
+</svg>
